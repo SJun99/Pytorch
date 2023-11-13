@@ -1,6 +1,0 @@
-
-class Trainer:
-    pass
-
-
-
