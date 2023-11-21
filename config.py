@@ -1,9 +1,14 @@
 
 DATA = {
     'type': ['Mnist', 'Cifar10'][1],
-    'resolution': (32, 32),
-    'PATH': ['/home/ysj/Desktop/sdsd/mnist', '/home/ysj/Desktop/sdsd/cifar10'][1],
-    }
+    'dataset': {
+        'resolution': (32, 32),
+        # -> transform,
+        'path': ['/home/ysj/Desktop/sdsd/mnist', '/home/ysj/Desktop/sdsd/cifar10'][1],
+        'mode': ['train', 'test'][0],
+        'batch_size' : [0, 4][1],
+    },
+}
 
 MODEL = {
     'backbone': {
@@ -20,16 +25,15 @@ MODEL = {
     }
 
 LOSS = {
-    'type': 'CrossEntropy',
+    'type': ['CrossEntropy', 'MSELoss'][0],
     # ...
     }
 
 OPTIMIZER = {
-    'type': 'Adam',
+    'type': ['Adam', 'SGD'][0],
+    'learning_rate' : [0.1, 0.01, 0.001][0],
     # ...
     }
-
-BATCH_SIZE = 4
 
 TRAIN = {
     'epochs': 10
