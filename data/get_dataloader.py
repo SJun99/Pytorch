@@ -3,22 +3,21 @@
 """
 from torch.utils.data import DataLoader
 
-
 def get_dataloader(cfg):
     """
     cfg에 따라 Dataset 클래스 객체를 만들고 Dataloader 까지 만들어 리턴
     """
     dataset = None
 
-    if cfg == 'Mnist':
+    if cfg['type'] == 'Mnist':
         from data.mnist import Mnist
-        dataset = Mnist(**cfg['dataset'])
+        dataset = Mnist(cfg)
 
-    elif cfg == 'Cifar10':
+    elif cfg['type'] == 'Cifar10':
         from data.cifar10 import Cifar10
-        dataset = Cifar10(mode, path)
+        dataset = Cifar10(cfg)
 
-    return DataLoader(dataset, batch_size=batch_size, shuffle=True)
+    return DataLoader(dataset, batch_size=cfg['dataset']['batch_size'], shuffle=True)
 
 
 def test_dataloader(cfg, mode, path, batch_size):
@@ -29,14 +28,14 @@ def test_dataloader(cfg, mode, path, batch_size):
     """
     dataset = None
 
-    if cfg == 'Mnist':
-        from mnist import Mnist
-        dataset = Mnist(mode, path)
+    if cfg['type'] == 'Mnist':
+        from data.mnist import Mnist
+        dataset = Mnist(**cfg['dataset'])
 
-    elif cfg == 'Cifar10':
-        from cifar10 import Cifar10
-        dataset = Cifar10(mode, path)
+    elif cfg['type'] == 'Cifar10':
+        from data.cifar10 import Cifar10
+        dataset = Cifar10(**cfg['dataset'])
         # 하나씩 띄우면서 확인 되도록 할 것
 
-    return DataLoader(dataset, batch_size=batch_size, shuffle=True)
+    return DataLoader(dataset, batch_size=cfg['batch_size'], shuffle=True)
 

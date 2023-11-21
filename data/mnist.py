@@ -6,18 +6,19 @@ from torch.utils.data import Dataset
 
 
 class Mnist(Dataset):
-    def __init__(self, mode, path, transform=None, target_transform=None):
-        self.path = path
+    def __init__(self, cfg, transform=None, target_transform=None):
+        self.path = cfg['dataset']['path']
+        self.mode = cfg['type']
 
         self.train_img = 'train-images.idx3-ubyte'
         self.test_img = 't10k-images.idx3-ubyte'
         self.train_label = 'train-labels.idx1-ubyte'
         self.test_label = 't10k-labels.idx1-ubyte'
-        if mode == 'train':
+        if self.mode == 'train':
             self.data_img = idx2numpy.convert_from_file(os.path.join(self.path, self.train_img))
             self.data_label = idx2numpy.convert_from_file(os.path.join(self.path, self.train_label))
 
-        elif mode == 'test':
+        elif self.mode == 'test':
             self.data_img = idx2numpy.convert_from_file(os.path.join(self.path, self.test_img))
             self.data_label = idx2numpy.convert_from_file(os.path.join(self.path, self.test_label))
 
