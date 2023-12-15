@@ -23,9 +23,17 @@ def get_model(cfg):
         from model.backbone import ResNet50
         backbone = ResNet50(cfg['in_channels'])
 
+    if cfg['backbone']['type'] == 'Net_backbone':
+        from model.backbone import Net_backbone
+        backbone = Net_backbone(cfg['in_channels'])
+
     if cfg['head']['type'] == 'MlpClassifier':
         from model.head import MlpClassifier
         head = MlpClassifier(cfg['in_features'], cfg['out_features'])
+
+    if cfg['head']['type'] == 'Net_head':
+        from model.head import Net_head
+        head = Net_head(cfg['in_features'], cfg['out_features'])
 
     return MyModel(backbone, head)
 

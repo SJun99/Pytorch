@@ -4,7 +4,6 @@ import torch.nn as nn
 class Myloss(nn.Module):
     def __init__(self, cfg):
         super(Myloss, self).__init__()
-
         self.loss_type = cfg['type']
 
         if self.loss_type == 'CrossEntropy':
